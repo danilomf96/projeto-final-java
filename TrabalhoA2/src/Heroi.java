@@ -2,11 +2,11 @@ public class Heroi extends Personagem {
     private String classe;
     private int magia;
     private int energia;
-   
+
     public Heroi() {
-       
+
     }
-   
+
     public Heroi(String nome, int ataque, int defesa, int ouro, String classe, int magia, int energia) {
         super(nome, ataque, defesa, ouro);
         this.classe = classe;
@@ -42,5 +42,5 @@ public class Heroi extends Personagem {
     public String toString() {
         return super.toString() + "\nHeroi classe=" + classe + "\nMagia=" + magia + "\nEnergia=" + energia;
     }
-     
+
 }
