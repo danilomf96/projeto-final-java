@@ -33,7 +33,7 @@ public class Console {
                 break;
 
             } catch (InputMismatchException e) {
-                System.out.println("O valor digitado não e do tipo 'int' ");
+                System.out.println("O valor digitado não e do tipo 'float' ");
                 System.out.println("Digite novamente: ");
             } finally {
                 leitor.nextLine();
@@ -52,7 +52,7 @@ public class Console {
                 break;
 
             } catch (InputMismatchException e) {
-                System.out.println("O valor digitado não e do tipo 'int' ");
+                System.out.println("O valor digitado não e do tipo 'double' ");
                 System.out.println("Digite novamente: ");
             } finally {
                 leitor.nextLine();
