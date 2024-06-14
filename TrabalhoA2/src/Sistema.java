@@ -8,12 +8,20 @@ public class Sistema {
 
     private static void cadastrarUsuario() {
         System.out.println("\nNome do Usuario:");
-        String novoArquivo = Console.lerString();
+        String nomeArquivo = Console.lerString();
+        System.out.println("\nSenha: ");
+        String senha = Console.lerString();
+        Usuario usuario = new Usuario(nomeArquivo, senha);
+        Cadastro.cadastrar(usuario);
+
     }
 
     private static void fazerLogin() {
         System.out.println("\nNome do Usuario:");
-        String nomeArquivo = Console.lerString();
+        String Arquivo = Console.lerString();
+        System.out.println("\nSenha: ");
+        String senha = Console.lerString();
+
     }
 
     private static void criarHeroi() {
@@ -43,5 +51,18 @@ public class Sistema {
                 criarHeroi();
                 return;
         }
+
+    }
+
+    private static void excluirUsuario() {
+        System.out.println("\nInforme o nome que deseja excluir: ");
+        String nome = Console.lerString();
+        Usuario u = Cadastro.buscar(nome);
+        if (u.equals(u)) {
+            System.out.println("\nUsuario " + nome + "nao foi encontrado. ");
+            return;
+        }
+        Cadastro.excluir(u);
+        System.out.println("\nUsuario excluido com sucesso.");
     }
 }
