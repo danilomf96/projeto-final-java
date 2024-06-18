@@ -1,14 +1,15 @@
+package Usuarios.Personagens;
+
 public class Vilao extends Personagem {
 
     private int level;
     private String mapa;
 
     public Vilao() {
-
     }
 
-    public Vilao(String nome, int ataque, int defesa, int ouro, int level, String mapa) {
-        super(nome, ataque, defesa, ouro);
+    public Vilao(String nome, int ataque, int defesa, int ouro, int vida, int level, String mapa) {
+        super(nome, ataque, defesa, ouro, vida);
         this.level = level;
         this.mapa = mapa;
     }
@@ -34,4 +35,13 @@ public class Vilao extends Personagem {
         return super.toString() + "\nLevel=" + level + "\nMapa=" + mapa;
     }
 
+    @Override
+    public void fromString(String linha) {
+        super.fromString(linha);
+        String[] partes = linha.split(";");
+        if (partes.length >= 6) {
+            this.level = Integer.parseInt(partes[4]);
+            this.mapa = partes[5];
+        }
+    }
 }

@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import Usuarios.Usuario;
+
 public class Cadastro {
     private static List<Usuario> listaUsuarios = new ArrayList<>();
 
