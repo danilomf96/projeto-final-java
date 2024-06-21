@@ -1,6 +1,9 @@
 package Usuarios.Personagens;
 
-public class Heroi extends Personagem {
+import EntradaDados.Console;
+import Interface.Negociavel;
+
+public class Heroi extends Personagem implements Negociavel{
     private String classe;
     private int magia;
     private int energia;
@@ -52,6 +55,42 @@ public class Heroi extends Personagem {
             this.classe = partes[5];
             this.magia = Integer.parseInt(partes[6]);
             this.energia = Integer.parseInt(partes[7]);
+        }
+    }
+
+    @Override
+    public void negociar() {
+        System.out.println("-- LOJA --");
+        System.out.println("1. Comprar poção de vida (50 ouro)");
+        System.out.println("2. Comprar poção de magia (30 ouro)");
+        System.out.println("3. Sair");
+
+        int escolha = Console.lerInt();
+        switch (escolha) {
+            case 1:
+                if (getOuro() >= 50) {
+                    setVida(getVida() + 50);
+                    setOuro(getOuro() - 50);
+                    System.out.println("Você comprou uma poção de vida!");
+                } else {
+                    System.out.println("Ouro insuficiente.");
+                }
+                break;
+            case 2:
+                if (getOuro() >= 30) {
+                    setMagia(getMagia() + 30);
+                    setOuro(getOuro() - 30);
+                    System.out.println("Você comprou uma poção de magia!");
+                } else {
+                    System.out.println("Ouro insuficiente.");
+                }
+                break;
+            case 3:
+                System.out.println("Saindo da loja...");
+                break;
+            default:
+                System.out.println("Opção inválida. Tente novamente.");
+                break;
         }
     }
 }
