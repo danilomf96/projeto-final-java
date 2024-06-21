@@ -63,7 +63,8 @@ public class Heroi extends Personagem implements Negociavel{
         System.out.println("-- LOJA --");
         System.out.println("1. Comprar poção de vida (50 ouro)");
         System.out.println("2. Comprar poção de magia (30 ouro)");
-        System.out.println("3. Sair");
+        System.out.println("3. Comprar poção de energia (30 ouro)");
+        System.out.println("4. Sair");
 
         int escolha = Console.lerInt();
         switch (escolha) {
@@ -86,6 +87,15 @@ public class Heroi extends Personagem implements Negociavel{
                 }
                 break;
             case 3:
+                if (getOuro() >= 30) {
+                    setEnergia(getEnergia() + 10);
+                    setOuro(getOuro() - 30);
+                    System.out.println("Você comprou uma poção de Energia!");
+                } else {
+                    System.out.println("Ouro insuficiente.");
+                }
+                break;
+            case 4:
                 System.out.println("Saindo da loja...");
                 break;
             default:
