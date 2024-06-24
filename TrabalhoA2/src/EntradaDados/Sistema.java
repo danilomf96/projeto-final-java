@@ -1,4 +1,5 @@
 package EntradaDados;
+
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -10,18 +11,21 @@ import Usuarios.Personagens.Personagem;
 import Usuarios.Personagens.PersonagemPersistencia;
 import Usuarios.Personagens.Vilao;
 
-
-public class Sistema{
+public class Sistema {
 
     private static Usuario usuarioLogado = null;
     private static Heroi heroiUsuario = null;
     private static Vilao vilaoInimigo = null;
 
-    private static final Vilao DRACO = new Vilao("Draco, o Dragão do Inferno", 30, 20, 200, 300, 10, "Montanhas de Fogo");
-    private static final Vilao MORGANA = new Vilao("Morgana, a Feiticeira Sombria", 25, 15, 150, 250, 8, "Floresta das Sombras");
-    private static final Vilao KRAKEN = new Vilao("Kraken, o Monstro dos Mares", 35, 25, 100, 350, 12, "Abismo do Oceano");
+    private static final Vilao DRACO = new Vilao("Draco, o Dragão do Inferno", 30, 20, 200, 300, 10,
+            "Montanhas de Fogo");
+    private static final Vilao MORGANA = new Vilao("Morgana, a Feiticeira Sombria", 25, 15, 150, 250, 8,
+            "Floresta das Sombras");
+    private static final Vilao KRAKEN = new Vilao("Kraken, o Monstro dos Mares", 35, 25, 100, 350, 12,
+            "Abismo do Oceano");
     private static final Vilao LOKI = new Vilao("Loki, o Enganador", 20, 10, 300, 200, 7, "Palácio das Ilusões");
-    private static final Vilao FENRIR = new Vilao("Fenrir, o Lobo Gigante", 40, 30, 250, 400, 15, "Planícies Congeladas");
+    private static final Vilao FENRIR = new Vilao("Fenrir, o Lobo Gigante", 40, 30, 250, 400, 15,
+            "Planícies Congeladas");
 
     private static void exibirMenuInicial() {
         System.out.println("\n--Hero of World--");
@@ -186,56 +190,55 @@ public class Sistema{
     }
 
     public static void batalha() {
-    try {
-        if (heroiUsuario == null) {
-            throw new Exception("Você precisa criar um herói antes de iniciar uma batalha.");
-        }
-
-        selecionarVilao();
-        System.out.println("Batalha iniciada entre " + heroiUsuario.getNome() + " e " + vilaoInimigo.getNome());
-
-        int vidaOriginalVilao = vilaoInimigo.getVida();
-
-        while (heroiUsuario.getVida() > 0 && vilaoInimigo.getVida() > 0) {
-            menuBatalha();
-            int escolha = Console.lerInt();
-            switch (escolha) {
-                case 1:
-                    atacar(heroiUsuario, vilaoInimigo);
-                    break;
-                case 2:
-                    defender(heroiUsuario);
-                    break;
-                case 3:
-                    usarMagia(heroiUsuario, vilaoInimigo);
-                    break;
-                default:
-                    System.out.println("Opção inválida. Tente novamente.");
-                    break;
+        try {
+            if (heroiUsuario == null) {
+                throw new Exception("Você precisa criar um herói antes de iniciar uma batalha.");
             }
 
-            if (vilaoInimigo.getVida() > 0) { 
-                atacar(vilaoInimigo, heroiUsuario);
+            selecionarVilao();
+            System.out.println("Batalha iniciada entre " + heroiUsuario.getNome() + " e " + vilaoInimigo.getNome());
+
+            int vidaOriginalVilao = vilaoInimigo.getVida();
+
+            while (heroiUsuario.getVida() > 0 && vilaoInimigo.getVida() > 0) {
+                menuBatalha();
+                int escolha = Console.lerInt();
+                switch (escolha) {
+                    case 1:
+                        atacar(heroiUsuario, vilaoInimigo);
+                        break;
+                    case 2:
+                        defender(heroiUsuario);
+                        break;
+                    case 3:
+                        usarMagia(heroiUsuario, vilaoInimigo);
+                        break;
+                    default:
+                        System.out.println("Opção inválida. Tente novamente.");
+                        break;
+                }
+
+                if (vilaoInimigo.getVida() > 0) {
+                    atacar(vilaoInimigo, heroiUsuario);
+                }
+
+                System.out.println("Status do Herói: " + heroiUsuario);
+                System.out.println("Status do Vilão: " + vilaoInimigo);
             }
 
-            System.out.println("Status do Herói: " + heroiUsuario);
-            System.out.println("Status do Vilão: " + vilaoInimigo);
+            if (heroiUsuario.getVida() > 0) {
+                System.out.println("Parabéns! Você derrotou " + vilaoInimigo.getNome());
+            } else {
+                System.out.println("Você foi derrotado por " + vilaoInimigo.getNome());
+            }
+
+            // Resetando a vida do vilão para futuras batalhas
+            vilaoInimigo.setVida(vidaOriginalVilao);
+
+        } catch (Exception e) {
+            System.out.println("Erro na batalha: " + e.getMessage());
         }
-
-        if (heroiUsuario.getVida() > 0) {
-            System.out.println("Parabéns! Você derrotou " + vilaoInimigo.getNome());
-        } else {
-            System.out.println("Você foi derrotado por " + vilaoInimigo.getNome());
-        }
-
-        // Resetando a vida do vilão para futuras batalhas
-        vilaoInimigo.setVida(vidaOriginalVilao);
-
-    } catch (Exception e) {
-        System.out.println("Erro na batalha: " + e.getMessage());
     }
-}
-
 
     private static void atacar(Personagem atacante, Personagem defensor) {
         int dano = atacante.getAtaque() - defensor.getDefesa();
