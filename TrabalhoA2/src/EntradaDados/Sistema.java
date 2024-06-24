@@ -160,7 +160,11 @@ public class Sistema {
                 System.out.println("Nenhum herói encontrado.");
             } else {
                 for (Heroi heroi : herois) {
-                    System.out.println(heroi);
+                    System.out.println("Nome do Heroi: " + heroi.getNome() + "\nVida: " + heroi.getVida() + "\nAtaq:"
+                            + heroi.getAtaque() + "\nDef:" + heroi.getDefesa() + "\nOuro:" + heroi.getOuro()
+                            + "\nClasse:"
+                            + heroi.getClasse() + "\nMagia:" + heroi.getMagia() + "\nEnergia:" + heroi.getEnergia()
+                            + "\n");
                 }
             }
         } catch (IOException e) {
