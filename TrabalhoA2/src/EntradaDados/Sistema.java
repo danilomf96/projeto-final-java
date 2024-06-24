@@ -42,6 +42,57 @@ public class Sistema {
         System.out.println("4. Sair");
     }
 
+    private static void exibirNegocios() {
+        if (heroiUsuario == null) {
+            System.out.println("Você precisa criar um herói antes de acessar a loja.");
+            return;
+        }
+
+        System.out.println("\n--Menu de Negócios--");
+        System.out.println("1. Usar poção de vida (50 euros)");
+        System.out.println("2. Usar poção de magia (30 euros)");
+        System.out.println("3. Usar poção de energia (30 euros)");
+        System.out.println("4. Sair");
+
+        int escolha = Console.lerInt();
+
+        switch (escolha) {
+            case 1:
+                if (heroiUsuario.getOuro() >= 50) {
+                    heroiUsuario.setVida(heroiUsuario.getVida() + 50);
+                    heroiUsuario.setOuro(heroiUsuario.getOuro() - 50);
+                    System.out.println("Você comprou uma poção de vida!");
+                } else {
+                    System.out.println("Ouro insuficiente.");
+                }
+                break;
+            case 2:
+                if (heroiUsuario.getOuro() >= 30) {
+                    heroiUsuario.setMagia(heroiUsuario.getMagia() + 30);
+                    heroiUsuario.setOuro(heroiUsuario.getOuro() - 30);
+                    System.out.println("Você comprou uma poção de magia!");
+                } else {
+                    System.out.println("Ouro insuficiente.");
+                }
+                break;
+            case 3:
+                if (heroiUsuario.getOuro() >= 30) {
+                    heroiUsuario.setEnergia(heroiUsuario.getEnergia() + 10);
+                    heroiUsuario.setOuro(heroiUsuario.getOuro() - 30);
+                    System.out.println("Você comprou uma poção de Energia!");
+                } else {
+                    System.out.println("Ouro insuficiente.");
+                }
+                break;
+            case 4:
+                System.out.println("Saindo da loja...");
+                break;
+            default:
+                System.out.println("Opção inválida. Tente novamente.");
+                break;
+        }
+    }
+
     private static void menuBatalha() {
         System.out.println("--BATALHA--");
         System.out.println("1. Atacar");
