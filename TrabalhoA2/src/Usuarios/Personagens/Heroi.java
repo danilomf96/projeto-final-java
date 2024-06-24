@@ -3,7 +3,7 @@ package Usuarios.Personagens;
 import EntradaDados.Console;
 import Interface.Negociavel;
 
-public class Heroi extends Personagem implements Negociavel{
+public class Heroi extends Personagem implements Negociavel {
     private String classe;
     private int magia;
     private int energia;
@@ -61,46 +61,6 @@ public class Heroi extends Personagem implements Negociavel{
     @Override
     public void negociar() {
         System.out.println("-- LOJA --");
-        System.out.println("1. Comprar poção de vida (50 ouro)");
-        System.out.println("2. Comprar poção de magia (30 ouro)");
-        System.out.println("3. Comprar poção de energia (30 ouro)");
-        System.out.println("4. Sair");
 
-        int escolha = Console.lerInt();
-        switch (escolha) {
-            case 1:
-                if (getOuro() >= 50) {
-                    setVida(getVida() + 50);
-                    setOuro(getOuro() - 50);
-                    System.out.println("Você comprou uma poção de vida!");
-                } else {
-                    System.out.println("Ouro insuficiente.");
-                }
-                break;
-            case 2:
-                if (getOuro() >= 30) {
-                    setMagia(getMagia() + 30);
-                    setOuro(getOuro() - 30);
-                    System.out.println("Você comprou uma poção de magia!");
-                } else {
-                    System.out.println("Ouro insuficiente.");
-                }
-                break;
-            case 3:
-                if (getOuro() >= 30) {
-                    setEnergia(getEnergia() + 10);
-                    setOuro(getOuro() - 30);
-                    System.out.println("Você comprou uma poção de Energia!");
-                } else {
-                    System.out.println("Ouro insuficiente.");
-                }
-                break;
-            case 4:
-                System.out.println("Saindo da loja...");
-                break;
-            default:
-                System.out.println("Opção inválida. Tente novamente.");
-                break;
-        }
     }
 }
