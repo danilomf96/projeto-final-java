@@ -277,8 +277,8 @@ public class Sistema {
                     atacar(vilaoInimigo, heroiUsuario);
                 }
 
-                System.out.println("Status do Herói: " + heroiUsuario);
-                System.out.println("Status do Vilão: " + vilaoInimigo);
+                System.out.println("Status do Herói: " + "\nVida: " + heroiUsuario.getVida() + "\nAtaq: " + heroiUsuario.getAtaque() + "\nDef: " + heroiUsuario.getDefesa() + "\nMagia: " + heroiUsuario.getMagia() + "\nEnergia: " + heroiUsuario.getEnergia() + "\n" );
+                System.out.println("Status do Vilão: " + "\nVida: " + vilaoInimigo.getVida() + "\nAtaq: " + vilaoInimigo.getAtaque() + "\nDef: " + vilaoInimigo.getDefesa() + "\n");
             }
 
             if (heroiUsuario.getVida() > 0) {
