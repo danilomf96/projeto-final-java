@@ -1,6 +1,6 @@
 package Usuarios.Personagens;
 
-import EntradaDados.Console;
+
 import Interface.Negociavel;
 
 public class Heroi extends Personagem implements Negociavel {
@@ -59,8 +59,8 @@ public class Heroi extends Personagem implements Negociavel {
     }
 
     @Override
-    public void negociar() {
-        System.out.println("-- LOJA --");
-
+    public void negociar(Heroi heroiUsuario) {
+        System.out.println("\n-- LOJA --");
+        System.out.println("Voce possui " + heroiUsuario.getOuro() + " de ouro");
     }
 }

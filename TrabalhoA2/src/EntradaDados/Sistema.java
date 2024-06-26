@@ -6,6 +6,7 @@ import java.util.List;
 
 import Usuarios.Usuario;
 import Usuarios.UsuarioPersistencia;
+import Usuarios.Personagens.Comerciante;
 import Usuarios.Personagens.Heroi;
 import Usuarios.Personagens.Personagem;
 import Usuarios.Personagens.PersonagemPersistencia;
@@ -16,15 +17,16 @@ public class Sistema {
     private static Usuario usuarioLogado = null;
     private static Heroi heroiUsuario = null;
     private static Vilao vilaoInimigo = null;
+    private static Comerciante comerciante = new Comerciante("Bob, o Comerciante", 0, 0, 0, 0, 1000, 1000, 1000);
 
-    private static final Vilao DRACO = new Vilao("Draco, o Dragão do Inferno", 30, 20, 200, 300, 10,
+    private static final Vilao DRACO = new Vilao("Draco, o Dragão do Inferno", 15, 20, 200, 300, 10,
             "Montanhas de Fogo");
-    private static final Vilao MORGANA = new Vilao("Morgana, a Feiticeira Sombria", 25, 15, 150, 250, 8,
+    private static final Vilao MORGANA = new Vilao("Morgana, a Feiticeira Sombria", 10, 15, 150, 250, 8,
             "Floresta das Sombras");
-    private static final Vilao KRAKEN = new Vilao("Kraken, o Monstro dos Mares", 35, 25, 100, 350, 12,
+    private static final Vilao KRAKEN = new Vilao("Kraken, o Monstro dos Mares", 20, 25, 100, 350, 12,
             "Abismo do Oceano");
-    private static final Vilao LOKI = new Vilao("Loki, o Enganador", 20, 10, 300, 200, 7, "Palácio das Ilusões");
-    private static final Vilao FENRIR = new Vilao("Fenrir, o Lobo Gigante", 40, 30, 250, 400, 15,
+    private static final Vilao LOKI = new Vilao("Loki, o Enganador", 10, 10, 300, 200, 7, "Palácio das Ilusões");
+    private static final Vilao FENRIR = new Vilao("Fenrir, o Lobo Gigante", 30, 30, 250, 400, 15,
             "Planícies Congeladas");
 
     private static void exibirMenuInicial() {
@@ -39,57 +41,21 @@ public class Sistema {
         System.out.println("1. Criar Herói");
         System.out.println("2. Ver Heróis");
         System.out.println("3. Iniciar batalha");
-        System.out.println("4. Sair");
+        System.out.println("4. Comerciante");
+        System.out.println("5. Apagar Heroi");
+        System.out.println("6. Sair");
     }
 
-    private static void exibirNegocios() {
+    private static void exibirMenuLoja() throws Exception {
         if (heroiUsuario == null) {
             System.out.println("Você precisa criar um herói antes de acessar a loja.");
             return;
-        }
-
-        System.out.println("\n--Menu de Negócios--");
-        System.out.println("1. Usar poção de vida (50 euros)");
-        System.out.println("2. Usar poção de magia (30 euros)");
-        System.out.println("3. Usar poção de energia (30 euros)");
-        System.out.println("4. Sair");
-
-        int escolha = Console.lerInt();
-
-        switch (escolha) {
-            case 1:
-                if (heroiUsuario.getOuro() >= 50) {
-                    heroiUsuario.setVida(heroiUsuario.getVida() + 50);
-                    heroiUsuario.setOuro(heroiUsuario.getOuro() - 50);
-                    System.out.println("Você comprou uma poção de vida!");
-                } else {
-                    System.out.println("Ouro insuficiente.");
-                }
-                break;
-            case 2:
-                if (heroiUsuario.getOuro() >= 30) {
-                    heroiUsuario.setMagia(heroiUsuario.getMagia() + 30);
-                    heroiUsuario.setOuro(heroiUsuario.getOuro() - 30);
-                    System.out.println("Você comprou uma poção de magia!");
-                } else {
-                    System.out.println("Ouro insuficiente.");
-                }
-                break;
-            case 3:
-                if (heroiUsuario.getOuro() >= 30) {
-                    heroiUsuario.setEnergia(heroiUsuario.getEnergia() + 10);
-                    heroiUsuario.setOuro(heroiUsuario.getOuro() - 30);
-                    System.out.println("Você comprou uma poção de Energia!");
-                } else {
-                    System.out.println("Ouro insuficiente.");
-                }
-                break;
-            case 4:
-                System.out.println("Saindo da loja...");
-                break;
-            default:
-                System.out.println("Opção inválida. Tente novamente.");
-                break;
+        }try {
+            heroiUsuario.negociar(heroiUsuario);
+            comerciante.negociar(heroiUsuario);
+            PersonagemPersistencia.atualizarHeroi(usuarioLogado.getNome(), heroiUsuario);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -164,28 +130,28 @@ public class Sistema {
             switch (opcaoClasse) {
                 case 1: // Guerreiro
                     classe = "Guerreiro";
-                    ataque = 20;
-                    defesa = 15;
+                    ataque = 30;
+                    defesa = 30;
                     ouro = 100;
                     energia = 50;
-                    vida = 150;
+                    vida = 200;
                     break;
                 case 2: // Mago
                     classe = "Mago";
-                    ataque = 15;
-                    defesa = 10;
+                    ataque = 20;
+                    defesa = 20;
                     ouro = 150;
                     energia = 50;
-                    vida = 120;
+                    vida = 150;
                     magia = 30; // Adicionando valor de magia para Mago
                     break;
                 case 3: // Assassino
                     classe = "Assassino";
                     ataque = 25;
-                    defesa = 10;
+                    defesa = 20;
                     ouro = 75;
                     energia = 50;
-                    vida = 100;
+                    vida = 180;
                     break;
                 default:
                     throw new IllegalArgumentException("Opção inválida. Escolha um número de 1 a 3.");
@@ -223,7 +189,7 @@ public class Sistema {
         }
     }
 
-    private static void selecionarVilao() {
+    private static Vilao selecionarVilao() {
         int escolha = (int) (Math.random() * 5);
         switch (escolha) {
             case 0:
@@ -242,6 +208,19 @@ public class Sistema {
                 vilaoInimigo = FENRIR;
                 break;
         }
+        return vilaoInimigo;
+    }
+
+    public static Heroi selecionarHeroi(){
+        System.out.println("\nDigite o nome do seu herói para o combate:");
+        String nome = Console.lerString();
+        try {
+            heroiUsuario = PersonagemPersistencia.buscarHeroi(nome);
+            System.out.println("\nHeroi localizado e se preparando para o Combate");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return heroiUsuario;
     }
 
     public static void batalha() {
@@ -249,7 +228,8 @@ public class Sistema {
             if (heroiUsuario == null) {
                 throw new Exception("Você precisa criar um herói antes de iniciar uma batalha.");
             }
-
+            PersonagemPersistencia.lerHerois(usuarioLogado.getNome());
+            selecionarHeroi();
             selecionarVilao();
             System.out.println("Batalha iniciada entre " + heroiUsuario.getNome() + " e " + vilaoInimigo.getNome());
 
@@ -282,18 +262,20 @@ public class Sistema {
             }
 
             if (heroiUsuario.getVida() > 0) {
+                heroiUsuario.setOuro(heroiUsuario.getOuro() + vilaoInimigo.getOuro());
+                vilaoInimigo.setVida(vidaOriginalVilao);
                 System.out.println("Parabéns! Você derrotou " + vilaoInimigo.getNome());
+                PersonagemPersistencia.atualizarHeroi(usuarioLogado.getNome(), heroiUsuario);
             } else {
+                vilaoInimigo.setVida(vidaOriginalVilao);
                 System.out.println("Você foi derrotado por " + vilaoInimigo.getNome());
+                PersonagemPersistencia.atualizarHeroi(usuarioLogado.getNome(), heroiUsuario);
             }
-
-            // Resetando a vida do vilão para futuras batalhas
-            vilaoInimigo.setVida(vidaOriginalVilao);
-
         } catch (Exception e) {
             System.out.println("Erro na batalha: " + e.getMessage());
         }
     }
+
 
     private static void atacar(Personagem atacante, Personagem defensor) {
         int dano = atacante.getAtaque() - defensor.getDefesa();
@@ -321,7 +303,7 @@ public class Sistema {
         }
     }
 
-    public static void executar() {
+    public static void executar() throws Exception {
         while (true) {
             exibirMenuInicial();
             int opcao = Console.lerInt();
@@ -348,6 +330,12 @@ public class Sistema {
                             batalha();
                             break;
                         case 4:
+                            exibirMenuLoja();
+                            break;
+                        case 5:
+                            apagarHeroi();
+                            break;
+                        case 6:
                             System.out.println("Saindo...");
                             return;
                         default:
@@ -362,6 +350,16 @@ public class Sistema {
                     System.out.println("Opção inválida. Tente novamente.");
                     break;
             }
+        }
+    }
+
+    private static void apagarHeroi() {
+        System.out.println("\nDigite o nome do seu herói para apagar: ");
+        String nome = Console.lerString();
+        try {
+            PersonagemPersistencia.apagarHeroi(nome);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }
